@@ -225,8 +225,8 @@ export default `/*默认样式，最佳实践*/
   padding: 2px 4px;
   border-radius: 4px;
   margin: 0 2px;
-  color: #1e6bb8;
-  background-color: rgba(27,31,35,.05);
+  color: magenta;
+  background-color: rgba(16,21,28,.07);
   font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
   word-break: break-all;
 }

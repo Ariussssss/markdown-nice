@@ -89,6 +89,11 @@ export const CODE_OPTIONS = [
     macId: "macXcode",
     name: "xcode",
   },
+  {
+    id: "zer",
+    macId: "macXcode",
+    name: "zer",
+  },
 ];
 
 export const SITDOWN_OPTIONS = [

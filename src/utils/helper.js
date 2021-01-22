@@ -54,13 +54,16 @@ export const deCode = (str) => {
   return decodeURIComponent(escape(window.atob(str)));
 };
 
+const prefix = `<span style="display: block;background: url(&quot;https://mmbiz.qpic.cn/mmbiz_png/2rumqOVDls3ecWde1wY6mUaNhSpVib6yX7hotcibfbhS7fsreXrtpicuAA2yJl3ZTjUYg8hOmV1BMcukat5nlzxnw/640?wx_fmt=png&quot;) 10px 10px / 40px no-repeat rgb(40, 44, 52);height: 30px;width: 100%;margin-bottom: -7px;border-radius: 5px;" data-darkmode-color-16113458925472="rgb(0, 0, 0)" data-darkmode-original-color-16113458925472="#fff|rgb(0,0,0)" data-darkmode-bgcolor-16113458925472="rgb(40, 44, 52)" data-darkmode-original-bgcolor-16113458925472="#fff|rgb(40, 44, 52)" data-darkmode-bgimage-16113458925472="1" class="js_darkmode__bg__11 js_darkmode__82" data-style="display: block; background: url(&quot;https://mmbiz.qpic.cn/mmbiz_png/2rumqOVDls3ecWde1wY6mUaNhSpVib6yX7hotcibfbhS7fsreXrtpicuAA2yJl3ZTjUYg8hOmV1BMcukat5nlzxnw/640?wx_fmt=png&quot;) 10px 10px / 40px no-repeat rgb(40, 44, 52); height: 30px; width: 100%; margin-bottom: -7px; border-radius: 5px;"></span>`;
+
 // 普通解析器，代码高亮用highlight
 export const markdownParser = new MarkdownIt({
   html: true,
   highlight: (str, lang) => {
-    if (lang === undefined || lang === "") {
+    if (lang === undefined || ["", "shell"].includes(lang)) {
       lang = "bash";
     }
+
     // 加上custom则表示自定义样式，而非微信专属，避免被remove pre
     if (lang && highlightjs.getLanguage(lang)) {
       try {
@@ -69,12 +72,14 @@ export const markdownParser = new MarkdownIt({
           .value.replace(/\n/g, "<br/>") // 换行用br表示
           .replace(/\s/g, "&nbsp;") // 用nbsp替换空格
           .replace(/span&nbsp;/g, "span "); // span标签修复
-        return '<pre class="custom"><code class="hljs">' + formatted + "</code></pre>";
+        return '<pre class="custom">' + prefix + '<code class="hljs">' + formatted + "</code></pre>";
       } catch (e) {
         console.log(e);
       }
     }
-    return '<pre class="custom"><code class="hljs">' + markdownParser.utils.escapeHtml(str) + "</code></pre>";
+    return (
+      '<pre class="custom">' + prefix + '<code class="hljs">' + markdownParser.utils.escapeHtml(str) + "</code></pre>"
+    );
   },
 });
 

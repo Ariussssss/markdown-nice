@@ -9,6 +9,7 @@ import github from "./code/github";
 import monokai from "./code/monokai";
 import vs2015 from "./code/vs2015";
 import xcode from "./code/xcode";
+import zer from "./code/zer";
 
 import macAtomOneDark from "./macCode/macAtomOneDark";
 import macAtomOneLight from "./macCode/macAtomOneLight";
@@ -30,6 +31,7 @@ export default {
     monokai,
     vs2015,
     xcode,
+    zer,
     macAtomOneDark,
     macAtomOneLight,
     macGithub,
